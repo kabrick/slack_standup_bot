@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, request
 from slack import WebClient
 from slackeventsapi import SlackEventAdapter
+from slack_bolt.adapter.flask import SlackRequestHandler
 from slack_bolt import App
 import os
 
@@ -19,7 +20,12 @@ def event_test(say):
 
 app = Flask(__name__)
 
+handler = SlackRequestHandler(slack_app)
 
+
+@app.route("/slack/events", methods=["POST"])
+def slack_events():
+    return handler.handle(request)
 # Create a slack client
 # slack_web_client = WebClient(token)
 
