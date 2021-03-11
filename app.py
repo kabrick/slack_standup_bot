@@ -12,9 +12,14 @@ channel = "team-stan-ups"
 
 
 @slack_app.event("app_mention")
-def event_test(body, say):
-    print(body)
-    say(f"Hello, <@{body['user']}>! I hope you had breakfast today")
+def hello(event, say):
+    say(f"Hello, <@{event['user']}>! I hope you had breakfast today")
+
+
+@slack_app.message("hello")
+def message_hello(message, say):
+    # say() sends a message to the channel where the event was triggered
+    say(f"Hey there <@{message['user']}>!")
 
 
 app = Flask(__name__)
