@@ -1,6 +1,4 @@
 from flask import Flask, request
-from slack import WebClient
-from slackeventsapi import SlackEventAdapter
 from slack_bolt.adapter.flask import SlackRequestHandler
 from slack_bolt import App
 import os
@@ -14,47 +12,29 @@ channel = "team-stan-ups"
 
 
 @slack_app.event("app_mention")
-def event_test(say):
-    say("Hello, i hope you had breakfast today")
+def event_test(message, say):
+    user = message['user']
+    say(f"Hello, <@{user}>! I hope you had breakfast today")
+
+
+@slack_app.event("message.app_home")
+def event_test(message, say):
+    user = message['user']
+    say(f"Hello, <@{user}>! I am still learning the ways of man. Soon, we will talk")
 
 
 app = Flask(__name__)
-
 handler = SlackRequestHandler(slack_app)
 
 
 @app.route("/slack/events", methods=["POST"])
 def slack_events():
     return handler.handle(request)
-# Create a slack client
-# slack_web_client = WebClient(token)
-
-# Create an events adapter and register it to an endpoint in the slack app for event ingestion.
-# slack_events_adapter = SlackEventAdapter(events_token, "/slack/events", app)
 
 
 @app.route('/')
 def hello_world():
-    # messages = {
-    #     "channel": channel,
-    #     "blocks": [{
-    #             "type": "section",
-    #             "text": {"type": "mrkdwn","text": "Hallo bruder, welkome"}
-    #         },],
-    # }
-    #
-    # slack_web_client.chat_postMessage(**messages)
     return "Hello World"
-
-
-# When a 'message' event is detected by the events adapter, forward that payload
-# to this function.
-# @slack_events_adapter.on("message")
-# def message(payload):
-# Since the activation phrase was met, get the channel ID that the event
-# was executed on
-# channel_id = event.get("channel")
-# hello_world()
 
 
 if __name__ == '__main__':
