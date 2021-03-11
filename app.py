@@ -4,7 +4,7 @@ from slackeventsapi import SlackEventAdapter
 
 app = Flask(__name__)
 channel = "team-stan-ups"
-token = "xoxb-1806588338951-1845472063456-K8e5P90A0D6xQdgmy5ckRwjK"
+token = "xoxb-1806588338951-1845472063456-T8N1aXZiBdXSlOUulGme5Edz"
 events_token = "844f1f12ae5bae16d8b4043d189fe728"
 
 # Create a slack client
