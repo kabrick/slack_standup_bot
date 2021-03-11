@@ -1,11 +1,12 @@
 from flask import Flask
 from slack import WebClient
 from slackeventsapi import SlackEventAdapter
+import os
 
 app = Flask(__name__)
 channel = "team-stan-ups"
-token = "xoxb-1806588338951-1845472063456-T8N1aXZiBdXSlOUulGme5Edz"
-events_token = "844f1f12ae5bae16d8b4043d189fe728"
+token = os.environ.get("SLACK_TOKEN")
+events_token = os.environ.get("SLACK_EVENTS_TOKEN")
 
 # Create a slack client
 slack_web_client = WebClient(token)
