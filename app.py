@@ -17,12 +17,6 @@ def event_test(message, say):
     say(f"Hello, <@{user}>! I hope you had breakfast today")
 
 
-@slack_app.event("message.app_home")
-def event_test(message, say):
-    user = message['user']
-    say(f"Hello, <@{user}>! I am still learning the ways of man. Soon, we will talk")
-
-
 app = Flask(__name__)
 handler = SlackRequestHandler(slack_app)
 
